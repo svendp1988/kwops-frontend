@@ -1,0 +1,21 @@
+// To fix non-default header size
+.pane-body {
+  overflow: hidden !important;
+
+  // Hide focus style
+  &:focus-within:before {
+    visibility: hidden !important;
+  }
+}
+
+.pane-header {
+  height: 32px !important;
+  line-height: 32px !important;
+  max-height: 32px !important;
+  min-height: 32px !important;
+}
+
+// Hide header focus style
+.pane-header:focus-within:before {
+  visibility: hidden !important;
+}
