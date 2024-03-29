@@ -1,0 +1,11 @@
+{
+  "inputs": [
+    {
+      "inputURL": "https://raw.githubusercontent.com/svendp1988/kwops/main/devops/src/main/openapi/devops-openapi.yaml"
+    },
+    {
+      "inputURL": "https://raw.githubusercontent.com/svendp1988/kwops/main/hr/src/main/openapi/hr-openapi.yaml"
+    }
+  ],
+  "output": "./build/openapi/output.swagger.json"
+}

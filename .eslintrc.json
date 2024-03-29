@@ -1,0 +1,21 @@
+{
+  "env": {
+    "jest": true,
+    "node": true,
+    "browser": true
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "globals": {
+    "Nullable": true,
+    "JSX": "readonly"
+  },
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "object-curly-spacing": ["error", "always"],
+    "prettier/prettier": 0,
+    "sort-keys": ["error", "asc", {"caseSensitive": true, "natural": false, "minKeys": 2}]
+  }
+}

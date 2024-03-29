@@ -1,0 +1,36 @@
+# Dependency directories
+node_modules/
+
+# Compiled TypeScript
+*.js
+!*.config.js
+!setupTests.js
+*.js.map
+
+# IDE specific
+.idea/
+
+# Logs
+logs/
+
+# Temporary files
+*.log
+*.bak
+*.swp
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# npm package files
+npm-debug.log
+
+# coverage
+coverage
+/package-lock.json
+
+# openapi
+src/types/api
+build/openapi
