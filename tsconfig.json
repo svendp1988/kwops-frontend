@@ -1,6 +1,9 @@
 {
+  "buildOnSave": false,
+  "compileOnSave": false,
   "compilerOptions": {
     "allowUnusedLabels": false,
+    "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -21,14 +24,19 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "types": ["node", "jest", "@testing-library/jest-dom"]
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
+    ]
   },
   "exclude": [
     "node_modules"
   ],
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "ts-node": { 
-    "files": true 
-  },
+  "include": [
+    "src"
+  ],
+  "ts-node": {
+    "files": true
+  }
 }

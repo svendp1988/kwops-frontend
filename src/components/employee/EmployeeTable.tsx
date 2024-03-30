@@ -1,20 +1,21 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Table } from "antd";
 import React from "react";
 import { EmployeeDetailsDto } from "../../types/api";
 import { ColumnsType } from "antd/es/table";
+import { useAppDispatch } from "../../redux/hooks";
+import { retrieveData } from "../../redux/features/employee/Employee.actions";
+import { selectEmployeeData } from "../../redux/features/employee/Employee.slice";
+import { useSelector } from "react-redux";
 
 const EmployeeTable: FC = () => {
 
-  const employees: EmployeeDetailsDto[] = [
-    {
-      firstName: "John",
-      id: 1,
-      lastName: "Doe",
-      number: "20240329",
-      startDate: "2024-03-29"
-    }
-  ];
+  const dispatch = useAppDispatch()
+  const employees = useSelector(selectEmployeeData);
+
+  useEffect(() => {
+    dispatch(retrieveData())
+  }, []);
 
   const columns: ColumnsType<EmployeeDetailsDto> = [
     {
@@ -45,5 +46,6 @@ const EmployeeTable: FC = () => {
   ]
 
   return <Table dataSource={employees} columns={columns}/>
-
 }
+
+export default EmployeeTable;
