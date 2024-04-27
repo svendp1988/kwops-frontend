@@ -1,4 +1,4 @@
-import EmployeeTable from "./employee/EmployeeTable";
+import Table from "./employee/Table";
 import Header from "./employee/Header";
 
-export { EmployeeTable, Header };
+export { Table, Header };

@@ -1,6 +1,7 @@
-import { EmployeeDetailsDto } from "src/types/api";
-import { RetrieveState } from "src/types";
+import { RetrieveState } from "src/types/client";
+import EditableEmployee from "../../../types/client/EditableEmployee";
 
 
-export interface EmployeeState extends RetrieveState<EmployeeDetailsDto> {
+export interface EmployeeState extends RetrieveState<EditableEmployee> {
+  isHiring: boolean;
 }

@@ -1,0 +1,15 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  css: {
+    modules: {
+      localsConvention: "camelCaseOnly"
+    }
+  },
+  plugins: [react({
+    // @ts-ignore
+    fastRefresh: process.env.NODE_ENV !== "test"
+  })]
+});

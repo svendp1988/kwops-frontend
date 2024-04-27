@@ -1,4 +1,4 @@
-import { RetrieveRequestStatus, RetrieveState } from "../../types";
+import { RetrieveRequestStatus, RetrieveState } from "../../types/client";
 
 export const handleRetrievePending = <T extends RetrieveState<unknown>>(state: T) => {
   state.retrieveRequestStatus = RetrieveRequestStatus.PENDING;

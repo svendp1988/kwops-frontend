@@ -1,12 +1,10 @@
 import React, { FC } from "react";
-import { EmployeeTable, Header } from "../../components";
-
+import { Table } from "../../components";
 
 
 const Employee: FC = () => (
       <>
-        <Header />
-        <EmployeeTable />
+        <Table />
       </>
   );
 
