@@ -1,0 +1,292 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "kwops API",
+    "description": "kwops API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8082/api"
+    }
+  ],
+  "paths": {
+    "/teams": {
+      "get": {
+        "tags": [
+          "team-controller"
+        ],
+        "summary": "GET teams",
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamDetailsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams/assemble": {
+      "post": {
+        "tags": [
+          "team-controller"
+        ],
+        "summary": "POST teams/assemble",
+        "operationId": "assembleDevelopersForTeam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamAssembleInputDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/employees/{number}": {
+      "get": {
+        "tags": [
+          "employee-controller"
+        ],
+        "summary": "GET employees/{number}",
+        "operationId": "getByNumber",
+        "parameters": [
+          {
+            "name": "number",
+            "example": "123456",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees": {
+      "get": {
+        "tags": [
+          "employee-controller"
+        ],
+        "summary": "GET employees",
+        "operationId": "getAllEmployees",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllEmployees"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "employee-controller"
+        ],
+        "summary": "POST employees",
+        "operationId": "add",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {
+              "Location": {
+                "description": "URI of the created resource",
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{number}/dismiss": {
+      "post": {
+        "tags": [
+          "employee-controller"
+        ],
+        "summary": "POST employees/{number}/dismiss",
+        "operationId": "dismiss",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "withNotice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": "true"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DeveloperDetailsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "TeamDetailsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "developers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeveloperDetailsDto"
+            }
+          }
+        }
+      },
+      "TeamAssembleInputDto": {
+        "type": "object",
+        "properties": {
+          "teamId": {
+            "type": "string"
+          },
+          "requiredNumberOfDevelopers": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "EmployeeDetailsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "number": {
+            "type": "string",
+            "example": "123456"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2021-01-01"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2021-12-31"
+          }
+        }
+      },
+      "EmployeeCreateDto": {
+        "type": "object",
+        "properties": {
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2021-01-01"
+          }
+        }
+      },
+      "AllEmployees": {
+        "type": "object",
+        "properties": {
+          "employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeDetailsDto"
+            }
+          }
+        }
+      }
+    }
+  }
+}
