@@ -1,0 +1,22 @@
+name: Workflow to Generate Orval dummy data
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *'
+jobs:
+  generate-dummy-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: 'orval'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+      - name: Install
+        run: npm install
+      - name: Run Orval command
+        run: |
+          { time timeout 30 npx orval --config orval.config.ts; } 2> time_output.txt
+      - name: Cat time output
+        if: always()
+        run: cat time_output.txt
