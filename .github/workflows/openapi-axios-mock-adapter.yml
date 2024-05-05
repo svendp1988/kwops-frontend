@@ -1,0 +1,22 @@
+name: Workflow to Generate OpenAPI Axios Mock Adapter dummy data
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *'
+jobs:
+  generate-dummy-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: 'openapi-axios-mock-adapter'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+      - name: Install
+        run: npm install
+      - name: Run OpenAPI Axios Mock Adapter command
+        run: |
+          { time timeout 30 npx generate-axios-mock-adapter -i build/openapi/output.swagger.json -o OpenAPIAxiosMockAdapter.ts -h http://localhost:3100; } 2> time_output.txt
+      - name: Cat time output
+        if: always()
+        run: cat time_output.txt

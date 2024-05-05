@@ -12,6 +12,8 @@ jobs:
           ref: 'counterfact'
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.2
+      - name: Install
+        run: npm install
       - name: Run Counterfact command
         run: |
           { time timeout 30 npx counterfact@latest ./build/openapi/output.swagger.json api; } 2> time_output.txt
