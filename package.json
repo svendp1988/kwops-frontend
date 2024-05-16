@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "antd": "^5.15.4",
     "axios": "^1.6.8",
+    "axios-mock-adapter": "^1.22.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
@@ -64,6 +65,9 @@
       "text",
       "cobertura"
     ],
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    },
     "testMatch": [
       "**/__tests__/**/*.(test|spec).(ts|tsx)"
     ],
