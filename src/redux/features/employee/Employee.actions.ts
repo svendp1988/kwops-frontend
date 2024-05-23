@@ -1,8 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Configuration, EmployeeControllerApi, EmployeeCreateDto } from "../../../types/api";
+import {
+  Configuration,
+  EmployeeControllerApi,
+  EmployeeControllerApiAxiosParamCreator,
+  EmployeeCreateDto
+} from "../../../types/api";
+import axios from "axios";
 
 const createApi = () => {
-  const configuration = new Configuration({ basePath: "https://kwops-1eec53f28fce.herokuapp.com/api" });
+  const configuration = new Configuration({ basePath: "http://localhost:8080/api" });
 
   return new EmployeeControllerApi(configuration);
 }

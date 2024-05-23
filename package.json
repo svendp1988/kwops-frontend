@@ -63,6 +63,9 @@
       "text",
       "cobertura"
     ],
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    },
     "testMatch": [
       "**/__tests__/**/*.(test|spec).(ts|tsx)"
     ],

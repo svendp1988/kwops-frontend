@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  description: kwops API
+  title: kwops API
+  version: 1.0.0
+servers:
+- url: http://localhost:8082/api
+paths:
+  /teams:
+    get:
+      operationId: getAll
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TeamDetailsDto'
+                type: array
+          description: OK
+      summary: GET teams
+      tags:
+      - team-controller
+      x-eov-operation-handler: controllers/TeamControllerController
+  /teams/assemble:
+    post:
+      operationId: assembleDevelopersForTeam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamAssembleInputDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+      summary: POST teams/assemble
+      tags:
+      - team-controller
+      x-eov-operation-handler: controllers/TeamControllerController
+  /employees/{number}:
+    get:
+      operationId: getByNumber
+      parameters:
+      - example: "123456"
+        explode: false
+        in: path
+        name: number
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDetailsDto'
+          description: OK
+      summary: "GET employees/{number}"
+      tags:
+      - employee-controller
+      x-eov-operation-handler: controllers/EmployeeControllerController
+  /employees:
+    get:
+      operationId: getAllEmployees
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllEmployees'
+          description: OK
+      summary: GET employees
+      tags:
+      - employee-controller
+      x-eov-operation-handler: controllers/EmployeeControllerController
+    post:
+      operationId: add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreateDto'
+        required: true
+      responses:
+        "201":
+          description: Created
+          headers:
+            Location:
+              description: URI of the created resource
+              explode: false
+              schema:
+                format: uri
+                type: string
+              style: simple
+      summary: POST employees
+      tags:
+      - employee-controller
+      x-eov-operation-handler: controllers/EmployeeControllerController
+  /employees/{number}/dismiss:
+    post:
+      operationId: dismiss
+      parameters:
+      - explode: false
+        in: path
+        name: number
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: withNotice
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: "POST employees/{number}/dismiss"
+      tags:
+      - employee-controller
+      x-eov-operation-handler: controllers/EmployeeControllerController
+components:
+  schemas:
+    DeveloperDetailsDto:
+      example:
+        firstName: firstName
+        lastName: lastName
+        rating: 0.8008281904610115
+        id: id
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        rating:
+          format: double
+          type: number
+      type: object
+    TeamDetailsDto:
+      example:
+        developers:
+        - firstName: firstName
+          lastName: lastName
+          rating: 0.8008281904610115
+          id: id
+        - firstName: firstName
+          lastName: lastName
+          rating: 0.8008281904610115
+          id: id
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        developers:
+          items:
+            $ref: '#/components/schemas/DeveloperDetailsDto'
+          type: array
+      type: object
+    TeamAssembleInputDto:
+      example:
+        teamId: teamId
+        requiredNumberOfDevelopers: 0
+      properties:
+        teamId:
+          type: string
+        requiredNumberOfDevelopers:
+          format: int32
+          type: integer
+      type: object
+    EmployeeDetailsDto:
+      example:
+        number: "123456"
+        lastName: Doe
+        firstName: John
+        endDate: 2021-12-31T00:00:00.000+00:00
+        id: 1
+        startDate: 2021-01-01T00:00:00.000+00:00
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        number:
+          example: "123456"
+          type: string
+        lastName:
+          example: Doe
+          type: string
+        firstName:
+          example: John
+          type: string
+        startDate:
+          example: 2021-01-01
+          format: date
+          type: string
+        endDate:
+          example: 2021-12-31
+          format: date
+          type: string
+      type: object
+    EmployeeCreateDto:
+      example:
+        lastName: Doe
+        firstName: John
+        startDate: 2021-01-01T00:00:00.000+00:00
+      properties:
+        lastName:
+          example: Doe
+          type: string
+        firstName:
+          example: John
+          type: string
+        startDate:
+          example: 2021-01-01
+          format: date
+          type: string
+      type: object
+    AllEmployees:
+      example:
+        employees:
+        - number: "123456"
+          lastName: Doe
+          firstName: John
+          endDate: 2021-12-31T00:00:00.000+00:00
+          id: 1
+          startDate: 2021-01-01T00:00:00.000+00:00
+        - number: "123456"
+          lastName: Doe
+          firstName: John
+          endDate: 2021-12-31T00:00:00.000+00:00
+          id: 1
+          startDate: 2021-01-01T00:00:00.000+00:00
+      properties:
+        employees:
+          items:
+            $ref: '#/components/schemas/EmployeeDetailsDto'
+          type: array
+      type: object
