@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect } from "react";
 import { Button, notification, Spin, Table as AntdTable } from "antd";
 import { useAppDispatch } from "../../redux/hooks";
 import { createEmployee, retrieveData } from "../../redux/features/employee/Employee.actions";
@@ -11,14 +11,12 @@ import {
 import { useSelector } from "react-redux";
 import { ExclamationOutlined, PlusOutlined } from "@ant-design/icons";
 import Header from "./Header";
-import { EmployeeCreateDto, EmployeeDetailsDto } from "../../types/api";
 import { EditableCell } from "../../atoms/editableCell/EditableCell";
 import { EditableRow } from "../../atoms/editableRow/EditableRow";
 import { mergedColumns } from "./Table.consts";
 import { RetrieveRequestStatus } from "../../types/client";
-import { NotificationPlacements } from "antd/lib/notification/interface";
+import { EmployeeCreateDto } from "../../../orval.schemas";
 
-const Context = React.createContext({ name: "Default" });
 
 const Table: FC = () => {
 
